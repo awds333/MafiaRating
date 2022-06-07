@@ -1,7 +1,7 @@
 package com.ximikat.mafiarating.ui.viewmodel
 
-data class PlayersListState(val id: Int) {
+import com.ximikat.mafiarating.model.domain.Player
 
-
-
-}
+data class PlayersListState(
+    val players: List<Player>
+)
