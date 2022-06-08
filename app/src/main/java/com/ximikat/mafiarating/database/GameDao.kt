@@ -11,4 +11,6 @@ interface GameDao {
     @Query("SELECT * FROM GameDto")
     fun getAll(): Flow<List<GameDto>>
 
+    // @Query("INSERT INTO GameDto VALUES ()")
+
 }

@@ -1,5 +1,6 @@
 package com.ximikat.mafiarating.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ximikat.mafiarating.model.domain.Player
@@ -31,7 +32,9 @@ class PlayersListViewModel(private val gamesRepository: GamesRepository) : ViewM
     }
 
     fun selectPlayer(player: Player) {
-        _navigationAction.tryEmit(ScreenNavigationItem.PlayerScreen(player))
+        viewModelScope.launch {
+            _navigationAction.emit(ScreenNavigationItem.PlayerScreen(player))
+        }
     }
 
 }

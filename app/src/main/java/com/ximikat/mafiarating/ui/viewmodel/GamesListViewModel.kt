@@ -2,12 +2,12 @@ package com.ximikat.mafiarating.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.repository.GamesRepository
+import com.ximikat.mafiarating.ui.ScreenNavigationItem
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class GamesListViewModel(private val gamesRepository: GamesRepository) : ViewModel() {

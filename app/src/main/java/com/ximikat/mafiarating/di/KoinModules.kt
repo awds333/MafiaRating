@@ -2,12 +2,9 @@ package com.ximikat.mafiarating.di
 
 import androidx.room.Room
 import com.ximikat.mafiarating.database.AppDatabase
-import com.ximikat.mafiarating.database.GameDao
 import com.ximikat.mafiarating.repository.GamesRepository
 import com.ximikat.mafiarating.repository.GamesRepositoryImpl
-import com.ximikat.mafiarating.repository.PlayersRepository
-import com.ximikat.mafiarating.repository.PlayersRepositoryImpl
-import com.ximikat.mafiarating.ui.viewmodel.GameCreationViewModel
+import com.ximikat.mafiarating.ui.viewmodel.GameConstructionViewModel
 import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
 import com.ximikat.mafiarating.ui.viewmodel.PlayerStatisticsViewModel
 import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
@@ -23,7 +20,7 @@ val viewModelModule = module {
         GamesListViewModel(get())
     }
     viewModel {
-        GameCreationViewModel(get())
+        GameConstructionViewModel(get())
     }
     viewModel {
         PlayerStatisticsViewModel(get())

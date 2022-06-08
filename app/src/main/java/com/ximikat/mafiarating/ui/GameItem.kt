@@ -17,7 +17,6 @@ import com.ximikat.mafiarating.model.domain.Team
 fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit) {
 
     Card(
-        // onClick = onClick,
         modifier = Modifier
             .padding(12.dp)
             .fillMaxWidth()
