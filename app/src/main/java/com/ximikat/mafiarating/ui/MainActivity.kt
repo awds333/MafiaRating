@@ -10,7 +10,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ximikat.mafiarating.model.domain.Game
+import com.ximikat.mafiarating.model.domain.Team
 import com.ximikat.mafiarating.ui.theme.MafiaRatingTheme
+import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
+import org.koin.androidx.compose.viewModel
+import java.util.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +27,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val viewModel = viewModel<GamesListViewModel>()
+                    GamesListCompose(viewModel.value)
                 }
             }
         }
@@ -38,6 +44,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     MafiaRatingTheme {
-        Greeting("Android")
+        GameItem(game = Game(emptyList(), 1, 2, 3, 3, Team.BLACK, Calendar.getInstance().time), {})
     }
 }
