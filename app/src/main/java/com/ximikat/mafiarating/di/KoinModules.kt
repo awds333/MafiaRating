@@ -24,6 +24,9 @@ val viewModelModule = module {
     viewModel {
         GameCreationViewModel(get())
     }
+    viewModel {
+        PlayersListViewModel(get())
+    }
 }
 
 val repositoryModule = module(true) {

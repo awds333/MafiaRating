@@ -5,9 +5,6 @@ import com.ximikat.mafiarating.model.domain.Player
 
 data class PlayerStatisticsState(
     val player: Player,
-    val allGames: List<Game>,
+    val games: List<Game>,
     val selectedGame: Game? = null
-) {
-    val filteredGames: List<Game>
-        get() = allGames.filter { it.containsPlayer(player) }
-}
+)

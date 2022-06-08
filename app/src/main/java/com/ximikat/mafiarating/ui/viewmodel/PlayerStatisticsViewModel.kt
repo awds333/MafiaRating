@@ -2,6 +2,7 @@ package com.ximikat.mafiarating.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.model.domain.Player
 import com.ximikat.mafiarating.repository.GamesRepository
 import kotlinx.coroutines.Dispatchers
@@ -14,16 +15,24 @@ class PlayerStatisticsViewModel(private val gamesRepository: GamesRepository) : 
     private val _mainState = MutableStateFlow(PlayerStatisticsState(Player(""), emptyList()))
     val mainState = _mainState.asStateFlow()
 
+    private var allGames = emptyList<Game>()
+
     init {
         viewModelScope.launch(Dispatchers.Main) {
             gamesRepository.getGames().collect {
-                _mainState.value = _mainState.value.copy(allGames = it)
+                allGames = it
+                _mainState.value = _mainState.value.copy(
+                    games = allGames.filter { game -> game.containsPlayer(_mainState.value.player) }
+                )
             }
         }
     }
 
     fun setPlayerFilter(player: Player) {
-        _mainState.value = _mainState.value.copy(player = player)
+        _mainState.value = _mainState.value.copy(
+            player = player,
+            games = allGames.filter { game -> game.containsPlayer(_mainState.value.player) }
+        )
     }
 
 }

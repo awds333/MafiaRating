@@ -17,6 +17,7 @@ import androidx.navigation.navArgument
 import com.ximikat.mafiarating.model.domain.Player
 import com.ximikat.mafiarating.ui.theme.MafiaRatingTheme
 import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
+import com.ximikat.mafiarating.ui.viewmodel.PlayerStatisticsViewModel
 import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,8 +30,10 @@ class MainActivity : ComponentActivity() {
 
             MafiaRatingTheme {
 
+                // TODO: Fix this?
                 val gamesViewModel = viewModel<GamesListViewModel>()
                 val playersViewModel = viewModel<PlayersListViewModel>()
+                val statisticsViewModel = viewModel<PlayerStatisticsViewModel>()
 
                 val globalNavController = rememberNavController()
 
@@ -73,10 +76,12 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(navArgument("nickname") { type = NavType.StringType })
                         ) {
 
-                            val player = it.arguments?.getString("nickname")?.let(::Player)
-
-
-
+                            val player = Player(it.arguments?.getString("nickname")!!)
+                            
+                            LaunchedEffect(key1 = this@MainActivity) {
+                                statisticsViewModel.value.setPlayerFilter(player)
+                            }
+                            
                         }
                     }
                 }
