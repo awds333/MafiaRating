@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun BottomNavigationBar(navigationController: NavHostController) {
 
-    val items = listOf(NavigationItem.GamesScreen, NavigationItem.PlayersScreen)
+    val items = listOf(BottomNavigationItem.GamesScreen, BottomNavigationItem.PlayersScreen)
 
     BottomNavigation() {
 
