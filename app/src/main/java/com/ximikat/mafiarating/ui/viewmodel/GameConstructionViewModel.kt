@@ -1,12 +1,15 @@
 package com.ximikat.mafiarating.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ximikat.mafiarating.database.GameDao
 import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.model.domain.Player
 import com.ximikat.mafiarating.model.domain.Team
 import com.ximikat.mafiarating.repository.GamesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import java.util.*
 
 class GameConstructionViewModel(private val gamesRepository: GamesRepository) : ViewModel() {
@@ -76,7 +79,15 @@ class GameConstructionViewModel(private val gamesRepository: GamesRepository) : 
                 winningTeam = winningTeam!!,
                 date = date ?: Calendar.getInstance().time
             )
+            viewModelScope.launch {
+                gamesRepository.addGame(game)
+            }
         }
+        reset()
+    }
+
+    private fun reset() {
+        _mainState.value = GameConstructionState()
     }
 
 }

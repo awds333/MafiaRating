@@ -1,20 +1,27 @@
 package com.ximikat.mafiarating.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import com.ximikat.mafiarating.ui.viewmodel.ConstructionStep
 import com.ximikat.mafiarating.ui.viewmodel.GameConstructionViewModel
 import com.ximikat.mafiarating.ui.viewmodel.isMafia
 
 @Composable
-fun GameConstructionScreenCompose(viewModel: GameConstructionViewModel) {
+fun GameConstructionScreenCompose(
+    viewModel: GameConstructionViewModel,
+    navHostController: NavHostController
+) {
 
     val state = viewModel.mainState.collectAsState()
 
@@ -57,6 +64,22 @@ fun GameConstructionScreenCompose(viewModel: GameConstructionViewModel) {
                             }
                         )
                     }
+                    ConstructionStep.SheriffDonAndInputStep -> { index, nickname ->
+                        TextField(
+                            value = nickname,
+                            readOnly = true,
+                            onValueChange = {},
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.Star,
+                                    "",
+                                    Modifier.clickable {
+
+                                    }
+                                )
+                            }
+                        )
+                    }
                     else -> { index, nickname -> TODO() }
                 }
 
@@ -87,7 +110,8 @@ fun GameConstructionScreenCompose(viewModel: GameConstructionViewModel) {
                 enabled = enabled && finalStep.not(),
                 onClick = {
                     if (finalStep) {
-                        // TODO: Save the game and nav
+                        viewModel.saveGame()
+                        navHostController.popBackStack()
                     } else {
                         viewModel.setCurrentStep(nextStep)
                     }

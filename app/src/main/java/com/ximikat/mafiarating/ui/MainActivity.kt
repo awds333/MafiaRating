@@ -100,7 +100,7 @@ class MainActivity : ComponentActivity() {
 
                         }
                         composable(ScreenNavigationItem.GameCreationScreen.route) {
-                            GameConstructionScreenCompose(gameConstructionViewModel.value)
+                            GameConstructionScreenCompose(gameConstructionViewModel.value, globalNavController)
                         }
                     }
                 }

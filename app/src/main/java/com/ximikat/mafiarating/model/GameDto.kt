@@ -9,7 +9,7 @@ import java.util.*
 
 @Entity
 data class GameDto (
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @NotNull @ColumnInfo(name = "raw_players") val rawPlayersStr: String,
     @NotNull @ColumnInfo(name = "mafia1") val maf1: Int,
     @NotNull @ColumnInfo(name = "mafia2") val maf2: Int,
