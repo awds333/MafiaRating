@@ -9,6 +9,7 @@ import com.ximikat.mafiarating.repository.PlayersRepository
 import com.ximikat.mafiarating.repository.PlayersRepositoryImpl
 import com.ximikat.mafiarating.ui.viewmodel.GameCreationViewModel
 import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
+import com.ximikat.mafiarating.ui.viewmodel.PlayerStatisticsViewModel
 import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,7 +26,7 @@ val viewModelModule = module {
         GameCreationViewModel(get())
     }
     viewModel {
-        PlayersListViewModel(get())
+        PlayerStatisticsViewModel(get())
     }
 }
 

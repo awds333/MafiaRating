@@ -1,5 +1,6 @@
 package com.ximikat.mafiarating.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,15 +13,15 @@ import androidx.compose.ui.unit.dp
 import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.model.domain.Team
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit) {
 
     Card(
-        onClick = onClick,
+        // onClick = onClick,
         modifier = Modifier
             .padding(12.dp)
             .fillMaxWidth()
+            .clickable { onClick() }
     ) {
         Column {
             Row {

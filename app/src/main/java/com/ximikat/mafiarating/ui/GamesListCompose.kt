@@ -12,7 +12,7 @@ import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
 fun GamesListCompose(viewModel: GamesListViewModel) {
 
     val games = viewModel.mainState.collectAsState()
-    LazyColumn(Modifier.fillMaxSize()) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(games.value.games) {
             GameItem(game = it, it == games.value.selectedGame) {
                 viewModel.toggleGameSelection(it)

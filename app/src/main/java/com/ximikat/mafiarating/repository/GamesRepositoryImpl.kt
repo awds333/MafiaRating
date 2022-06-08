@@ -1,9 +1,7 @@
 package com.ximikat.mafiarating.repository
 
 import com.ximikat.mafiarating.database.GameDao
-import com.ximikat.mafiarating.model.domain.Game
-import com.ximikat.mafiarating.model.domain.Player
-import com.ximikat.mafiarating.model.domain.Team
+import com.ximikat.mafiarating.model.domain.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -16,7 +14,10 @@ class GamesRepositoryImpl(private val gameDao: GameDao): GamesRepository {
         return flowOf(
             listOf(
                 Game(listOf(Pair(Player("Ocelot"), 50000.0)), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time),
-                Game(listOf(), 1, 1, 1, 1, Team.RED, Calendar.getInstance().time),
+                Game(listOf(
+                    Player("Rocket").won(), Player("Logic").lost(),
+                    Player("Zigzag").lost(), Player("Ocelot").won()
+                ), 1, 1, 1, 1, Team.RED, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.RED, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time)
