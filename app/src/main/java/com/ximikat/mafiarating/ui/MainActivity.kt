@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.ximikat.mafiarating.model.domain.Player
 import com.ximikat.mafiarating.ui.theme.MafiaRatingTheme
 import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
 import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
@@ -71,7 +72,11 @@ class MainActivity : ComponentActivity() {
                             ScreenNavigationItem.PlayerScreen.routeTemplate,
                             arguments = listOf(navArgument("nickname") { type = NavType.StringType })
                         ) {
-                            getString()
+
+                            val player = it.arguments?.getString("nickname")?.let(::Player)
+
+
+
                         }
                     }
                 }

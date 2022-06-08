@@ -3,11 +3,8 @@ package com.ximikat.mafiarating.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Build
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -43,7 +40,7 @@ fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit) {
 
             if (isSelected) {
                 Column {
-                    game.players.forEachIndexed { index, (player, points) ->
+                    game.entries.forEachIndexed { index, (player, points) ->
                         Box(
                             modifier = Modifier.fillMaxWidth()
                         ) {

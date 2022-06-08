@@ -11,7 +11,6 @@ import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
 @Composable
 fun GamesListCompose(viewModel: GamesListViewModel) {
 
-
     val games = viewModel.mainState.collectAsState()
     LazyColumn(Modifier.fillMaxSize()) {
         items(games.value.games) {

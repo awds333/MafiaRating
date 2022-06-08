@@ -21,7 +21,7 @@ class PlayersListViewModel(private val gamesRepository: GamesRepository) : ViewM
             gamesRepository.getGames().collect { games ->
                 val playerSet = mutableSetOf<Player>()
                 games.forEach {
-                    it.players.forEach { (player, _) ->
+                    it.entries.forEach { (player, _) ->
                         playerSet.add(player)
                     }
                 }

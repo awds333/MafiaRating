@@ -7,13 +7,13 @@ import com.ximikat.mafiarating.repository.GamesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class GamesListViewModel(private val gamesRepository: GamesRepository) : ViewModel() {
 
     private val _mainState = MutableStateFlow(GamesListState(emptyList()))
-    val mainState: StateFlow<GamesListState>
-        get() = _mainState
+    val mainState = _mainState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
