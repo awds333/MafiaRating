@@ -4,17 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ximikat.mafiarating.model.domain.Player
 import com.ximikat.mafiarating.repository.GamesRepository
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class PlayersListViewModel(private val gamesRepository: GamesRepository) : ViewModel() {
 
     private val _mainState = MutableStateFlow(PlayersListState(emptyList()))
-    val mainState: StateFlow<PlayersListState>
-        get() = _mainState
+    val mainState = _mainState.asStateFlow()
 
     private val _navigationAction = MutableSharedFlow<PlayerNavigationAction>()
     val navigationAction: SharedFlow<PlayerNavigationAction>

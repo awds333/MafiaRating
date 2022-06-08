@@ -5,7 +5,7 @@ import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
 import org.koin.androidx.compose.viewModel
 
 @Composable
-fun PlayersListCompose() {
+fun PlayersListCompose(viewModel: PlayersListViewModel) {
 
 
 

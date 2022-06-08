@@ -4,17 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.model.domain.Team
 import com.ximikat.mafiarating.ui.theme.MafiaRatingTheme
 import com.ximikat.mafiarating.ui.viewmodel.GamesListViewModel
-import org.koin.androidx.compose.viewModel
+import com.ximikat.mafiarating.ui.viewmodel.PlayersListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class MainActivity : ComponentActivity() {
@@ -22,28 +25,34 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MafiaRatingTheme {
-                // A surface container using the 'background' color from the theme
+
+                val gamesViewModel = viewModel<GamesListViewModel>()
+                val playersViewModel = viewModel<PlayersListViewModel>()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val viewModel = viewModel<GamesListViewModel>()
-                    GamesListCompose(viewModel.value)
+                    val navigationController = rememberNavController()
+                    Scaffold(
+                        Modifier.fillMaxSize(),
+                        topBar = {},
+                        bottomBar = { BottomNavigationBar(navigationController) }
+                    ) {
+                        NavHost(navController = navigationController,
+                            startDestination = NavigationItem.GamesScreen.route
+                        ) {
+                            composable(NavigationItem.PlayersScreen.route) {
+                                PlayersListCompose(playersViewModel.value)
+                            }
+                            composable(NavigationItem.GamesScreen.route) {
+                                GamesListCompose(gamesViewModel.value)
+                            }
+                        }
+                    }
                 }
+
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MafiaRatingTheme {
-        GameItem(game = Game(emptyList(), 1, 2, 3, 3, Team.BLACK, Calendar.getInstance().time), {})
     }
 }

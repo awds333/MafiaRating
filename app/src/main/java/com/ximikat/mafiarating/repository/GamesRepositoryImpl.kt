@@ -15,7 +15,7 @@ class GamesRepositoryImpl(private val gameDao: GameDao): GamesRepository {
     override suspend fun getGames(): Flow<List<Game>> {
         return flowOf(
             listOf(
-                Game(listOf(), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time),
+                Game(listOf(Pair(Player("Ocelot"), 50000.0)), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.RED, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.BLACK, Calendar.getInstance().time),
                 Game(listOf(), 1, 1, 1, 1, Team.RED, Calendar.getInstance().time),
