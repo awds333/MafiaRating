@@ -8,13 +8,20 @@ import androidx.compose.ui.Modifier
 import com.ximikat.mafiarating.model.domain.Game
 
 @Composable
-fun GamesListCompose(games: List<Game>, selectedGame: Game?, onGameClick: (Game) -> Unit) {
+fun GamesListCompose(
+    games: List<Game>,
+    selectedGame: Game?,
+    onGameClick: (Game) -> Unit,
+    onDeleteClick: (Game) -> Unit
+) {
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(games) {
-            GameItem(game = it, it == selectedGame) {
+            GameItem(game = it, it == selectedGame, {
                 onGameClick(it)
-            }
+            }, {
+                onDeleteClick(it)
+            })
         }
     }
 

@@ -44,4 +44,10 @@ class PlayerStatisticsViewModel(private val gamesRepository: GamesRepository) : 
         }
     }
 
+    fun deleteGame(game: Game) {
+        viewModelScope.launch {
+            gamesRepository.deleteGame(game)
+        }
+    }
+
 }

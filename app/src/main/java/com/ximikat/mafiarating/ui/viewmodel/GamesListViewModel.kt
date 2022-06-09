@@ -31,4 +31,10 @@ class GamesListViewModel(private val gamesRepository: GamesRepository) : ViewMod
         }
     }
 
+    fun deleteGame(game: Game) {
+        viewModelScope.launch {
+            gamesRepository.deleteGame(game)
+        }
+    }
+
 }

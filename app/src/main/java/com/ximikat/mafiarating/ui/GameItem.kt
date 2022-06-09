@@ -4,17 +4,22 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.ximikat.mafiarating.R
 import com.ximikat.mafiarating.model.domain.Game
 import com.ximikat.mafiarating.model.domain.Team
 
 @Composable
-fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit) {
+fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit, onDelete: () -> Unit) {
 
     Card(
         modifier = Modifier
@@ -22,38 +27,41 @@ fun GameItem(game: Game, isSelected: Boolean, onClick: () -> Unit) {
             .fillMaxWidth()
             .clickable { onClick() }
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(5.dp)
+        ) {
             Row {
                 Icon(
-                    Icons.Rounded.Lock,
-                    "Winning team",
+                    painterResource(id = R.drawable.ic_crown_circle), "",
                     tint = if (game.winningTeam == Team.BLACK) Color.Black else Color.Red
                 )
                 Text(
                     text = if (game.winningTeam == Team.BLACK) {
-                        "Mafia win!"
+                        "Mafia won"
                     } else {
-                        "Game suck"
-                    }
+                        "Civilians won"
+                    },
+                    fontSize = 18.sp
                 )
+                if (isSelected) {
+                    Box(
+                        modifier = Modifier.clickable { onDelete() }
+                    ) {
+                        Icon(Icons.Default.Delete, "")
+                    }
+                }
             }
 
             if (isSelected) {
+                Spacer(modifier = Modifier.height(4.dp))
                 Column {
                     game.entries.forEachIndexed { index, (player, points) ->
-                        Box(
+                        Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            // TODO: Fix overlap of two text fields
                             Text(
                                 text = "${index + 1}. ${player.nickname}",
-                                modifier = Modifier.padding(8.dp)
-                            )
-                            Text(
-                                text = "%+.2f".format(points),
-                                modifier = Modifier.padding(8.dp).fillMaxWidth(),
-                                color = if (points > 0) Color.Green else Color.Red,
-                                textAlign = TextAlign.End
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                     }

@@ -1,6 +1,7 @@
 package com.ximikat.mafiarating.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.ximikat.mafiarating.model.GameDto
@@ -15,5 +16,8 @@ interface GameDao {
 
     @Insert
     suspend fun insertGame(game: GameDto)
+
+    @Delete
+    suspend fun deleteGame(game: GameDto)
 
 }

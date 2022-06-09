@@ -9,7 +9,7 @@ data class GameConstructionState(
     val sheriff: Int? = null,
     val don: Int? = null,
     val winningTeam: Team? = null,
-    val date: Date? = null,
+    val date: Date = Calendar.getInstance().time,
     val currentStep: ConstructionStep = ConstructionStep.NicknameInputStep
 ) {
     val allNicknamesChosen: Boolean

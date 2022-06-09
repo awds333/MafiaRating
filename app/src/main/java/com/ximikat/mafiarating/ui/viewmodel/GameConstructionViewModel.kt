@@ -19,9 +19,13 @@ class GameConstructionViewModel(private val gamesRepository: GamesRepository) : 
         get() = _mainState
 
     fun setNickname(index: Int, nickname: String) {
+        val nicknameIndex = _mainState.value.playerNicknames.indexOf(nickname)
         _mainState.value = _mainState.value.copy(
             playerNicknames = _mainState.value.playerNicknames
-                .toMutableList().apply { this[index] = nickname }
+                .toMutableList().apply {
+                    this[index] = nickname
+                    if (nicknameIndex != -1) this[nicknameIndex] = ""
+                }
         )
     }
 
@@ -37,28 +41,36 @@ class GameConstructionViewModel(private val gamesRepository: GamesRepository) : 
         )
     }
 
-    fun toggleSheriffButton(index: Int) {
+    fun toggleSpatialRoll(index: Int) {
+        if (_mainState.value.isMafia(index)) {
+            _mainState.value = _mainState.value.copy(
+                don = if (_mainState.value.don == index) {
+                    null
+                } else {
+                    index
+                }
+            )
+        } else {
+            _mainState.value = _mainState.value.copy(
+                sheriff = if (_mainState.value.sheriff == index) {
+                    null
+                } else {
+                    index
+                }
+            )
+        }
+    }
+
+    fun toggleWinningTeam(team: Team) {
         _mainState.value = _mainState.value.copy(
-            sheriff = if (_mainState.value.sheriff == index) {
+            winningTeam = if (_mainState.value.winningTeam == team) {
                 null
-            } else {
-                index
-            }
+            } else team
         )
     }
 
-    fun toggleDonButton(index: Int) {
-        _mainState.value = _mainState.value.copy(
-            don = if (_mainState.value.don == index) {
-                null
-            } else {
-                index
-            }
-        )
-    }
-
-    fun setWinningTeam(team: Team) {
-        _mainState.value = _mainState.value.copy(winningTeam = team)
+    fun setDate(date: Date) {
+        _mainState.value = _mainState.value.copy(date = date)
     }
 
     fun setCurrentStep(step: ConstructionStep) {
@@ -77,7 +89,7 @@ class GameConstructionViewModel(private val gamesRepository: GamesRepository) : 
                 sheriff = sheriff!!,
                 don = don!!,
                 winningTeam = winningTeam!!,
-                date = date ?: Calendar.getInstance().time
+                date = date
             )
             viewModelScope.launch {
                 gamesRepository.addGame(game)

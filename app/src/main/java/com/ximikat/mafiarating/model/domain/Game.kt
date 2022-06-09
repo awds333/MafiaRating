@@ -3,6 +3,7 @@ package com.ximikat.mafiarating.model.domain
 import java.util.*
 
 data class Game(
+    val id: Int? = null,
     val entries: List<Pair<Player, Double>>,
     val maf1: Int, val maf2: Int,
     val sheriff: Int, val don: Int,

@@ -16,6 +16,7 @@ class GamesRepositoryImpl(private val gameDao: GameDao) : GamesRepository {
             val formatter = SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH)
             gameDtoList.map { gameDto ->
                 Game(
+                    id = gameDto.id,
                     entries = gameDto.rawPlayersStr.split('|').map {
                         val (nickname, bonus) = it.split(':')
                         Pair(Player(nickname), bonus.toDouble())
@@ -33,8 +34,26 @@ class GamesRepositoryImpl(private val gameDao: GameDao) : GamesRepository {
         val formatter = SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH)
         gameDao.insertGame(
             GameDto(
-                rawPlayersStr = game.entries.joinToString(separator = "|") { (nickname, points) ->
-                    "$nickname:$points"
+                rawPlayersStr = game.entries.joinToString(separator = "|") { (player, points) ->
+                    "${player.nickname}:$points"
+                },
+                maf1 = game.maf1,
+                maf2 = game.maf2,
+                sheriff = game.sheriff,
+                don = game.don,
+                winningTeam = game.winningTeam,
+                rawDateStr = formatter.format(game.date)
+            )
+        )
+    }
+
+    override suspend fun deleteGame(game: Game) {
+        val formatter = SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH)
+        gameDao.deleteGame(
+            GameDto(
+                id = game.id!!,
+                rawPlayersStr = game.entries.joinToString(separator = "|") { (player, points) ->
+                    "${player.nickname}:$points"
                 },
                 maf1 = game.maf1,
                 maf2 = game.maf2,

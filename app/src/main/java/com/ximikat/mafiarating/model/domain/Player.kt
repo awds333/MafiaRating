@@ -1,7 +1,6 @@
 package com.ximikat.mafiarating.model.domain
 
-@JvmInline
-value class Player(
+data class Player(
     val nickname: String
 )
 
