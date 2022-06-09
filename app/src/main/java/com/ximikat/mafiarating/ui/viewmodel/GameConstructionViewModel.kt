@@ -98,7 +98,7 @@ class GameConstructionViewModel(private val gamesRepository: GamesRepository) : 
         reset()
     }
 
-    private fun reset() {
+    fun reset() {
         _mainState.value = GameConstructionState()
     }
 
